@@ -4,13 +4,15 @@ import { tsConstructorType } from '@babel/types';
 
 import Card from './Card'
 import './Card.css'
+import InputEvents from './events/InputEvents'
 
 function App() {
   return (
     <div className="App">
+      {/* <Card/>
       <Card/>
-      <Card/>
-      <Card/>
+      <Card/> */}
+      <InputEvents/>
     </div>
   );
 }
