@@ -1,6 +1,6 @@
 import React, {Component, FormEvent} from 'react'
 
-class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : number, inputText: string, formInputText : string}>{
+class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : number, inputText: string, formInputText : string, formInputTextSubmitted: string}>{
     constructor(props : any){
         super(props)
 
@@ -8,7 +8,8 @@ class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : num
             mouseDown: false,
             mouseClicked: 0,
             inputText: "Hello World",
-            formInputText: "Hello World 2"
+            formInputText: "Hello World 2",
+            formInputTextSubmitted: ""
         }
         this.handleOnClick = this.handleOnClick.bind(this);
         this.handleOnMouseUp = this.handleOnMouseUp.bind(this);
@@ -42,6 +43,13 @@ class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : num
         })
     }
 
+    handleOnSubmit = (event : React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        this.setState({
+            formInputTextSubmitted: this.state.formInputText
+        })
+    }
+
     render(){
         return (
             <>
@@ -66,6 +74,19 @@ class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : num
                     onChange={this.handleOnChange}
                 />
                 <p>Input Value: {this.state.inputText}</p>
+            </section>
+
+            <section>
+                <h3>Form Submit Events:</h3>
+                <form onSubmit={this.handleOnSubmit}>
+                    <input 
+                        type="text"
+                        value={this.state.formInputText}
+                        />
+                        <button type="submit">Submit</button>
+                    <p>Input Value: {this.state.formInputText}</p>
+                    <p>Submitted Value: {this.state.formInputTextSubmitted}</p>
+                </form>
             </section>
             </>
         )
