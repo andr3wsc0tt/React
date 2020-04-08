@@ -1,19 +1,39 @@
 import React, {Component} from 'react';
 
-class Card extends Component{
+class Card extends Component<{}, {firstName: string, initials : string, info : Array<any> }> {
+    constructor(props : any){
+        super(props);
+
+        this.state = {
+            firstName : 'Jane Smith',
+            initials : 'JS',
+            info: [
+                {title: 'Birthday', text: 'Jan 1 1980'},
+                {title: 'Address', text: '123 Fulton St.'},
+                {title: 'Phone', text: ''},
+                {title: 'Email', text: 'jane@gmail.com'}
+            ]
+        }
+    }
+
     render(){
         return (
         <React.Fragment>
             <section className="card-container">
             <header className="card-header">
-                <span custom-initials="JS"></span>
-                <h2>Jane Smith</h2>
+                <span custom-initials={this.state.initials}></span>
+                <h2>{this.state.firstName}</h2>
             </header>
             <main>
                 <ul>
-                    <li> <span>Birthday</span> Jan 1, 1980 </li>
-                    <li>< span>Address</span> 123 Fulton St.</li>
-                    <li> <span>Phone</span> 999-555-1234</li>
+                    {this.state.info.map((row, index) =>{
+                        return(
+                            <li key={index}>
+                                <span>{row.title}</span>
+                                {row.text ? row.text : 'n/a'}
+                            </li>
+                        )
+                    })}
                 </ul>
             </main>
             </section>
