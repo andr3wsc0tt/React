@@ -6,6 +6,7 @@ import Card from './Card'
 import './Card.css'
 import InputEvents from './events/InputEvents'
 import MovementEvents from './events/MovementEvents'
+import FormValidation from './FormValidation'
 
 function App() {
   return (
@@ -13,8 +14,9 @@ function App() {
       {/* <Card/>
       <Card/>
       <Card/> */}
-      <InputEvents/>
-      <MovementEvents/>
+      {/* <InputEvents/>
+      <MovementEvents/> */}
+
     </div>
   );
 }
