@@ -38,11 +38,19 @@ class FormValidation extends Component<
   handleOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    this.validateFields();
+    const isFormValid : boolean = this.validateFields();
+
+    if (isFormValid){
+      this.setState((state) => {
+        return {
+          submitted: state.submitted + 1
+        }
+      })
+    }
   }
 
-  validateFields() {
-    const { firstName, feedback, acceptedTerms } = this.state;
+  validateFields() : boolean {
+    const { firstName, feedback, acceptedTerms, validationErrors, submitted } = this.state;
 
     const errors: Record<string, string> = {};
 
@@ -59,9 +67,19 @@ class FormValidation extends Component<
     this.setState({
       validationErrors: errors
     } as any);
+
+    return Object.keys(errors).length === 0
   }
 
   render() {
+    const {
+      firstName: firstNameError,
+      feedback: feedbackError,
+      acceptedTerms: acceptedTermsError,
+      validationErrors,
+      submitted
+    } = this.state.validationErrors
+    
     return (
       <>
         <section>
@@ -69,7 +87,7 @@ class FormValidation extends Component<
           <form onSubmit={this.handleOnSubmit}>
             <label>
               <span className="error">
-                {this.state.validationErrors.firstName}
+                {firstNameError}
               </span>
               <input
                 type="text"
@@ -80,7 +98,7 @@ class FormValidation extends Component<
               />
             </label>
             <label>
-                <span className="error">{this.state.validationErrors.feedback}</span>
+                <span className="error">{feedbackError}</span>
               <input
                 type="text"
                 name="feedback"
@@ -90,7 +108,7 @@ class FormValidation extends Component<
               />
             </label>
             <label htmlFor="">
-            <span className="error">{this.state.validationErrors.acceptedTerms }</span>
+            <span className="error">{acceptedTermsError}</span>
                 <input 
                 type="checkbox"
                 name="acceptedTerms"
