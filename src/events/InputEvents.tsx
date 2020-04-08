@@ -82,6 +82,7 @@ class InputEvents extends Component <{}, {mouseDown: boolean, mouseClicked : num
                     <input 
                         type="text"
                         value={this.state.formInputText}
+                        readOnly = {true}
                         />
                         <button type="submit">Submit</button>
                     <p>Input Value: {this.state.formInputText}</p>
