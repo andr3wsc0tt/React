@@ -16,6 +16,7 @@ function App() {
       <Card/> */}
       {/* <InputEvents/>
       <MovementEvents/> */}
+      <FormValidation/>
 
     </div>
   );
