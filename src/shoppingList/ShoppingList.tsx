@@ -13,7 +13,7 @@ export default class ShoppingList extends React.Component<IShoppingListProps, {n
             newItemName: '',
             groceryItems: [
                 {name:'Banana', id: 'item-1', completed:false},
-                {name:'Applces', id: 'item-2', completed: true},
+                {name:'Apples', id: 'item-2', completed: true},
                 {name:'Rice', id:'item-3', completed:false}
             ],
             validationErrors: {},
@@ -25,6 +25,30 @@ export default class ShoppingList extends React.Component<IShoppingListProps, {n
         this.handleDelete = this.handleDelete.bind(this)
         this.validateFields = this.validateFields.bind(this)
         this.handleOnSubmit = this.handleOnSubmit.bind(this)
+    }
+
+    componentDidUpdate(prevProps : any, prevState : any){
+        const prevStateString = JSON.stringify(prevState.groceryItems)
+        const updatedStateString = JSON.stringify(this.state.groceryItems)
+        const submittedString = JSON.stringify(this.state.submitted)
+
+        if (prevStateString != updatedStateString){
+            console.log('Save this:', updatedStateString)
+            localStorage.setItem('groceryItems', updatedStateString)
+            localStorage.setItem('submitted', submittedString)
+        }
+    }
+
+    componentDidMount(){
+        const savedStateFromLocalStorage = localStorage.getItem('groceryItems')
+        const submittedString = localStorage.getItem('submitted')
+        
+        if (savedStateFromLocalStorage && submittedString){
+            this.setState({
+                groceryItems: JSON.parse(savedStateFromLocalStorage),
+                submitted: JSON.parse(submittedString)
+            })
+        }
     }
 
     handleOnChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -45,7 +69,11 @@ export default class ShoppingList extends React.Component<IShoppingListProps, {n
         console.log('toggling: ' + index)
 
         const newGroceryItemsState = [...this.state.groceryItems]
-        newGroceryItemsState[index].completed = target.checked
+        
+        newGroceryItemsState[index] = {
+            ...newGroceryItemsState[index],
+            completed: target.checked
+        }
         
         this.setState({
             groceryItems: newGroceryItemsState
