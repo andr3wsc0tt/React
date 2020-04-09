@@ -71,3 +71,26 @@ li span{
     font-size: 15px;
     letter-spacing: 1px;
 }
+
+[class*="favorite"] {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #f7f7f7;
+    height: 40px;
+    width: 40px;
+    vertical-align: middle;
+    color: #959595;
+    font-size: inherit;
+    position: relative;
+    float:right;
+}
+
+.favorite:after{
+    position: absolute;
+    top: 50%;
+    transform: translateX(50%) translateY(-50%);
+}
+
+.favoriteactive{
+    background-color: yellow;
+}

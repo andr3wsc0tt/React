@@ -8,6 +8,7 @@ import InputEvents from './events/InputEvents'
 import MovementEvents from './events/MovementEvents'
 import FormValidation from './FormValidation'
 import ShoppingList from './shoppingList/ShoppingList'
+import CardHooks from './CardHooks'
 
 function App() {
   return (
@@ -15,10 +16,15 @@ function App() {
       {/* <Card/>
       <Card/>
       <Card/> */}
+
       {/* <InputEvents/>
       <MovementEvents/> */}
+
       {/* <FormValidation/> */}
-      <ShoppingList/>
+
+      {/* <ShoppingList/> */}
+      <CardHooks/>
+
 
     </div>
   );
